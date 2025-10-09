@@ -8,7 +8,7 @@ class Note < ApplicationRecord
   include Reactable
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::SanitizeHelper
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
   include SearchConfigBuilder
   include Commentable
   include FollowUpable

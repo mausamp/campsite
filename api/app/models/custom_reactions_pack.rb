@@ -5,7 +5,7 @@ class CustomReactionsPack
 
   class CustomReactionPacksItem
     include ActiveModel::Model
-    include ImgixUrlBuilder
+  include MediaUrlBuilder
 
     attr_accessor :file_path
 

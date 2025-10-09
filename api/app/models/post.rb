@@ -15,7 +15,7 @@ class Post < ApplicationRecord
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::SanitizeHelper
   include TaskUpdatable
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
   include SearchConfigBuilder
   include Commentable
   include FollowUpable

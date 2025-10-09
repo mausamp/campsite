@@ -3,7 +3,7 @@
 class MessageThread < ApplicationRecord
   include Discard::Model
   include PublicIdGenerator
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
   include Eventable
   include Favoritable
 

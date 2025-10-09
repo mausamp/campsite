@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OpenGraphLink < ApplicationRecord
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   class ParseError < StandardError; end
 

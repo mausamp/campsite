@@ -6,7 +6,7 @@ require "openssl"
 class User < ApplicationRecord
   include FallbackAvatarUrl
   include PublicIdGenerator
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
   include Tokenable
 
   DEV_APP_PROTOCOL = "campsite-dev://"

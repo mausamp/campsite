@@ -6,7 +6,7 @@ class Feedback < ApplicationRecord
   belongs_to :user
   belongs_to :organization, optional: true
 
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   def self.generate_presigned_fields(organization, mime_type)
     extension = Rack::Mime::MIME_TYPES.invert[mime_type]

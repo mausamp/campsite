@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ImageUrls
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   WIDTHS = {
     thumbnail_url: 112,

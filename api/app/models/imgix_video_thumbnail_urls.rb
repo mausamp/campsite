@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ImgixVideoThumbnailUrls
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   def initialize(file_path:)
     raise ArgumentError, "missing file_path" if file_path.blank?

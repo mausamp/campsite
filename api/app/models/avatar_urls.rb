@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AvatarUrls
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   AVATAR_MAX_FILE_SIZE = 5.megabyte
 

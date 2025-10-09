@@ -2,7 +2,7 @@
 
 class DataExport < ApplicationRecord
   include PublicIdGenerator
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
   include Rails.application.routes.url_helpers
 
   belongs_to :member, class_name: "OrganizationMembership"

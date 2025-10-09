@@ -4,7 +4,7 @@ class Project < ApplicationRecord
   class NoAddableMembersError < StandardError; end
 
   include PublicIdGenerator
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
   include Favoritable
   include Eventable
   include ActionView::Helpers::UrlHelper

@@ -9,7 +9,7 @@ class CallRecording < ApplicationRecord
   ]
 
   include PublicIdGenerator
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   belongs_to :call
   has_many :speakers, class_name: "CallRecordingSpeaker", dependent: :destroy_async

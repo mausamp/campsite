@@ -4,7 +4,7 @@
 class LinearIssueJob < BaseJob
   sidekiq_options queue: "background"
 
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   def perform(feedback_id)
     @feedback_id = feedback_id

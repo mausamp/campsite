@@ -6,7 +6,7 @@ class Organization < ApplicationRecord
   extend FriendlyId
   include FallbackAvatarUrl
   include PublicIdGenerator
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
   include Tokenable
 
   COVER_PHOTO_MAX_FILE_SIZE = 5.megabyte

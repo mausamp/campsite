@@ -2,7 +2,7 @@
 
 class Attachment < ApplicationRecord
   include PublicIdGenerator
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   FILE_TYPES_TO_EXTENSION = {
     "image/gif" => "gif",
