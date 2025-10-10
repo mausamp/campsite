@@ -2,7 +2,7 @@
 
 require "nanoid"
 
-module MediaUrlBuilder
+module ImgixUrlBuilder
   extend ActiveSupport::Concern
 
   FALLBACK_AVATAR_COLORS = [
@@ -16,42 +16,32 @@ module MediaUrlBuilder
     "5eead4", # teal.300
   ].freeze
 
-  # === Helpers ===
-
   def fallback_avatar(name = "", append_params = {})
     color = FALLBACK_AVATAR_COLORS[name.each_byte.sum % FALLBACK_AVATAR_COLORS.length]
-    build_cloudflare_url(
-      "static/avatars/#{name[0] ? name[0].upcase : "blank"}.png",
-      append_params.merge("blend-color": color)
-    )
+    build_imgix_url("static/avatars/#{name[0] ? name[0].upcase : "blank"}.png", append_params.merge("blend-color": color))
   end
 
-  # Build URL for files served through your Cloudflare CDN domain
   def build_imgix_url(path, append_params = {})
-    uri = Addressable::URI.parse(Rails.application.credentials.dig(:cloudflare, :cdn_url))
-    # example: https://cdn.example.com
-    uri.path = "/cdn/#{path}" # or just `path` if you're proxying bucket directly
-
+    uri = Addressable::URI.parse(Rails.application.credentials.imgix.url)
+    uri.path = path
     if append_params.present?
       uri.query_values = append_params.compact.merge(uri.query_values || {})
     end
-
     uri.to_s
   end
 
-  # If you have multiple zones or special buckets (like imgix_folder before)
   def build_imgix_folder_url(path, append_params = {})
-    uri = Addressable::URI.parse(Rails.application.credentials.dig(:cloudflare, :folder_cdn_url))
-    uri.path = "/cdn/#{path}"
+    uri = Addressable::URI.parse(Rails.application.credentials.imgix_folder.url)
+    uri.path = path
     if append_params.present?
       uri.query_values = append_params.compact.merge(uri.query_values || {})
     end
     uri.to_s
   end
 
-  def build_imgix__video_url(path, append_params = {})
-    uri = Addressable::URI.parse(Rails.application.credentials.dig(:cloudflare, :video_cdn_url))
-    uri.path = "/cdn/#{path}"
+  def build_imgix_video_url(path, append_params = {})
+    uri = Addressable::URI.parse(Rails.application.credentials.imgix_video.url)
+    uri.path = path
     if append_params.present?
       uri.query_values = append_params.compact.merge(uri.query_values || {})
     end
