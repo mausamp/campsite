@@ -23,10 +23,10 @@ class CdnController < ApplicationController
     key = params[:path]
     bucket = Rails.application.credentials.dig(:aws, :s3_bucket)
 
-    # Transformation params
-    width    = params[:w]&.to_i
-    height   = params[:h]&.to_i
-    quality  = (params[:q] || 80).to_i
+    # Log transformation params for debugging (Cloudflare will handle these)
+    if params[:w] || params[:h] || params[:q] || params[:format] || params[:width] || params[:height]
+      Rails.logger.debug "[CdnController] Image transformation params: #{params.slice(:w, :h, :q, :format, :width, :height, :quality).inspect}"
+    end
 
     # Fetch object from S3
     s3_object = s3_client.get_object(bucket: bucket, key: key)
@@ -35,6 +35,7 @@ class CdnController < ApplicationController
     response.headers["Cache-Control"]  = "public, max-age=31536000, immutable"
     response.headers["ETag"]           = s3_object.etag
     response.headers["Last-Modified"]  = s3_object.last_modified.httpdate
+    response.headers["Content-Type"]   = s3_object.content_type
     response.headers["Content-Disposition"] = "inline"
     
     # CORS headers for browser access
@@ -42,18 +43,17 @@ class CdnController < ApplicationController
     response.headers["Access-Control-Allow-Methods"] = "GET, HEAD, OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"
 
-    if image?(s3_object) && (width&.positive? || height&.positive?)
-      transformed = transform_image(s3_object, width, height, quality)
-      response.headers["Content-Type"] = transformed.mime_type
-      send_data transformed.to_blob, disposition: "inline"
-    else
-      response.headers["Content-Type"] = s3_object.content_type
-      s3_object.body.each { |chunk| response.stream.write(chunk) }
-    end
+    # Stream the object directly - no transformation in Rails
+    # Cloudflare Image Resizing will handle transformations based on query params
+    s3_object.body.each { |chunk| response.stream.write(chunk) }
   rescue Aws::S3::Errors::NoSuchKey
+    Rails.logger.warn "[CdnController] S3 object not found: #{key}"
     render plain: "File not found", status: :not_found
+  rescue StandardError => e
+    Rails.logger.error "[CdnController] Error streaming S3 object #{key}: #{e.class}: #{e.message}"
+    render plain: "Internal server error", status: :internal_server_error
   ensure
-    response.stream.close
+    response.stream.close if response.stream
   end
 
   private
@@ -76,38 +76,13 @@ class CdnController < ApplicationController
   end
 
   def ssl_ca_bundle_path
-    # Try to find system CA bundle (common paths)
-    # Override with ENV var or credentials if needed
-    return ENV['SSL_CERT_FILE'] if ENV['SSL_CERT_FILE'].present?
-    
+    # Common CA bundle paths
     [
-      '/etc/ssl/certs/ca-certificates.crt',  # Debian/Ubuntu
-      '/etc/pki/tls/certs/ca-bundle.crt',    # RedHat/CentOS
-      '/etc/ssl/cert.pem',                    # Alpine/macOS
+      "/etc/ssl/certs/ca-certificates.crt", # Debian/Ubuntu
+      "/etc/pki/tls/certs/ca-bundle.crt",   # RHEL/CentOS
+      "/etc/ssl/ca-bundle.pem",             # OpenSUSE
+      "/etc/ssl/cert.pem"                   # macOS/Alpine
     ].find { |path| File.exist?(path) }
-  end
-
-  def image?(s3_object)
-    content_type = s3_object.content_type
-    content_type&.start_with?("image/")
-  end
-
-  def transform_image(s3_object, width, height, quality)
-    # Save to temp file for MiniMagick
-    temp = Tempfile.new(["cdn", File.extname(s3_object.key)])
-    temp.binmode
-    temp.write(s3_object.body.read)
-    temp.rewind
-
-    img = MiniMagick::Image.open(temp.path)
-    resize_str = [width.presence || "", height.presence || ""].join("x")
-    img.resize(resize_str) if resize_str.present?
-    img.quality quality.to_s
-
-    img
-  ensure
-    temp.close
-    temp.unlink
   end
 
   def accept_cloudflare_ssl
