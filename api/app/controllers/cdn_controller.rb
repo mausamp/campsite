@@ -2,6 +2,7 @@
 
 class CdnController < ApplicationController
   include ActionController::Live
+  before_action :force_ssl_for_cloudflare
 
   skip_before_action :verify_authenticity_token
 
@@ -89,5 +90,12 @@ class CdnController < ApplicationController
   ensure
     temp.close
     temp.unlink
+  end
+
+  def force_ssl_for_cloudflare
+    # Cloudflare sets X-Forwarded-Proto: https for HTTPS requests
+    if request.headers["X-Forwarded-Proto"] == "https"
+      request.env["rack.url_scheme"] = "https"
+    end
   end
 end
