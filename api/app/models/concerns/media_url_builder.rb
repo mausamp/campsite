@@ -41,7 +41,11 @@ module MediaUrlBuilder
 
   # If you have multiple zones or special buckets (like imgix_folder before)
   def build_imgix_folder_url(path, append_params = {})
-    uri = Addressable::URI.parse(Rails.application.credentials.dig(:cloudflare, :folder_cdn_url))
+    folder_cdn_url = Rails.application.credentials.dig(:cloudflare, :folder_cdn_url)
+    # Fallback to main cdn_url if folder_cdn_url is not configured
+    folder_cdn_url ||= Rails.application.credentials.dig(:cloudflare, :cdn_url)
+    
+    uri = Addressable::URI.parse(folder_cdn_url)
     uri.path = "/cdn/#{path}"
     if append_params.present?
       uri.query_values = append_params.compact.merge(uri.query_values || {})
@@ -50,7 +54,11 @@ module MediaUrlBuilder
   end
 
   def build_imgix_video_url(path, append_params = {})
-    uri = Addressable::URI.parse(Rails.application.credentials.dig(:cloudflare, :video_cdn_url))
+    video_cdn_url = Rails.application.credentials.dig(:cloudflare, :video_cdn_url)
+    # Fallback to main cdn_url if video_cdn_url is not configured
+    video_cdn_url ||= Rails.application.credentials.dig(:cloudflare, :cdn_url)
+    
+    uri = Addressable::URI.parse(video_cdn_url)
     uri.path = "/cdn/#{path}"
     if append_params.present?
       uri.query_values = append_params.compact.merge(uri.query_values || {})
