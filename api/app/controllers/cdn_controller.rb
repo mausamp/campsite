@@ -2,11 +2,14 @@
 
 class CdnController < ApplicationController
   include ActionController::Live
-  before_action :force_ssl_for_cloudflare
-  before_action :skip_force_ssl_redirect
 
+  # Skip ALL authentication and security checks for public CDN access
   skip_before_action :verify_authenticity_token
   skip_before_action :require_authenticated_user, raise: false
+
+  # CRITICAL: Skip any SSL enforcement to prevent redirect loops
+  # Cloudflare handles SSL termination, Rails should accept the request as-is
+  before_action :accept_cloudflare_ssl
 
   # Handle CORS preflight requests
   def options
@@ -107,24 +110,13 @@ class CdnController < ApplicationController
     temp.unlink
   end
 
-  def skip_force_ssl_redirect
-    # Prevent Rails from forcing SSL redirects for CDN requests
-    # since Cloudflare handles SSL termination
-    request.env['rack.url_scheme'] = 'https' if request.headers['CF-Ray'].present?
-  end
-
-  def force_ssl_for_cloudflare
-    # Cloudflare sets X-Forwarded-Proto: https for HTTPS requests
-    # Force HTTPS scheme if coming from Cloudflare (prevents redirect loops)
-    if request.headers["CF-Ray"].present? || request.headers["X-Forwarded-Proto"] == "https"
-      request.env["rack.url_scheme"] = "https"
-      request.env["HTTPS"] = "on"
+  def accept_cloudflare_ssl
+    if request.headers['X-Forwarded-Proto'] == 'https' || request.headers['CF-Visitor']&.include?('"scheme":"https"')
+      request.env['rack.url_scheme'] = 'https'
+      request.env['HTTPS'] = 'on'
     end
-    
-    # Log the request for debugging
-    Rails.logger.info "[CdnController] Request: #{request.method} #{request.fullpath}"
-    Rails.logger.info "[CdnController] Host: #{request.host}, X-Forwarded-Host: #{request.headers['X-Forwarded-Host']}"
-    Rails.logger.info "[CdnController] CF-Ray: #{request.headers['CF-Ray']}, X-Forwarded-Proto: #{request.headers['X-Forwarded-Proto']}"
-    Rails.logger.info "[CdnController] Path param: #{params[:path]}"
+
+    # Optional: log request info for debugging
+    Rails.logger.debug "[CdnController] CDN request: #{request.method} #{request.fullpath} Host: #{request.host} Scheme: #{request.scheme}"
   end
 end
