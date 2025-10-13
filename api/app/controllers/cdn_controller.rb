@@ -3,8 +3,18 @@
 class CdnController < ApplicationController
   include ActionController::Live
   before_action :force_ssl_for_cloudflare
+  before_action :skip_force_ssl_redirect
 
   skip_before_action :verify_authenticity_token
+  skip_before_action :require_authenticated_user, raise: false
+
+  # Handle CORS preflight requests
+  def options
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, HEAD, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"
+    head :ok
+  end
 
   def show
     key = params[:path]
@@ -23,6 +33,11 @@ class CdnController < ApplicationController
     response.headers["ETag"]           = s3_object.etag
     response.headers["Last-Modified"]  = s3_object.last_modified.httpdate
     response.headers["Content-Disposition"] = "inline"
+    
+    # CORS headers for browser access
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, HEAD, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"
 
     if image?(s3_object) && (width&.positive? || height&.positive?)
       transformed = transform_image(s3_object, width, height, quality)
@@ -92,10 +107,24 @@ class CdnController < ApplicationController
     temp.unlink
   end
 
+  def skip_force_ssl_redirect
+    # Prevent Rails from forcing SSL redirects for CDN requests
+    # since Cloudflare handles SSL termination
+    request.env['rack.url_scheme'] = 'https' if request.headers['CF-Ray'].present?
+  end
+
   def force_ssl_for_cloudflare
     # Cloudflare sets X-Forwarded-Proto: https for HTTPS requests
-    if request.headers["X-Forwarded-Proto"] == "https"
+    # Force HTTPS scheme if coming from Cloudflare (prevents redirect loops)
+    if request.headers["CF-Ray"].present? || request.headers["X-Forwarded-Proto"] == "https"
       request.env["rack.url_scheme"] = "https"
+      request.env["HTTPS"] = "on"
     end
+    
+    # Log the request for debugging
+    Rails.logger.info "[CdnController] Request: #{request.method} #{request.fullpath}"
+    Rails.logger.info "[CdnController] Host: #{request.host}, X-Forwarded-Host: #{request.headers['X-Forwarded-Host']}"
+    Rails.logger.info "[CdnController] CF-Ray: #{request.headers['CF-Ray']}, X-Forwarded-Proto: #{request.headers['X-Forwarded-Proto']}"
+    Rails.logger.info "[CdnController] Path param: #{params[:path]}"
   end
 end

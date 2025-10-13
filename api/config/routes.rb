@@ -597,6 +597,7 @@ Rails.application.routes.draw do
   # and requests for media will be proxied to this route: /media/*path
   get "/media/*path", to: "media#show", as: :media, format: false
   get "/cdn/*path", to: "cdn#show", as: :cdn_file, format: false
+  match "/cdn/*path", to: "cdn#options", via: :options, format: false
 
   # Adds OAuth routes to the V2 API.
   # This errors if used in a `scope` block so we use the `scope` option on `use_doorkeeper` instead.
