@@ -759,7 +759,7 @@ overrides:
 
 patchedDependencies:
   '@radix-ui/react-popper':
-    hash: hiw5swwadiatbtuqje6dydtwjm
+    hash: b84c7ace091ed14c91544bb77dfe28cdfc6129831ecc5b321cd4b3ac84ef432b
     path: patches/@radix-ui__react-popper.patch
 
 importers:
@@ -1918,7 +1918,7 @@ importers:
         version: 1.1.1(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-popper':
         specifier: 'catalog:'
-        version: 1.2.0(patch_hash=hiw5swwadiatbtuqje6dydtwjm)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 1.2.0(patch_hash=b84c7ace091ed14c91544bb77dfe28cdfc6129831ecc5b321cd4b3ac84ef432b)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-radio-group':
         specifier: 'catalog:'
         version: 1.2.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -17014,7 +17014,7 @@ snapshots:
       '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.2.74)(react@18.2.0)
       '@radix-ui/react-context': 1.1.0(@types/react@18.2.74)(react@18.2.0)
       '@radix-ui/react-dismissable-layer': 1.1.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@radix-ui/react-popper': 1.2.0(patch_hash=hiw5swwadiatbtuqje6dydtwjm)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-popper': 1.2.0(patch_hash=b84c7ace091ed14c91544bb77dfe28cdfc6129831ecc5b321cd4b3ac84ef432b)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-portal': 1.1.1(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-presence': 1.1.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -17043,7 +17043,7 @@ snapshots:
       '@radix-ui/react-focus-guards': 1.1.0(@types/react@18.2.74)(react@18.2.0)
       '@radix-ui/react-focus-scope': 1.1.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-id': 1.1.0(@types/react@18.2.74)(react@18.2.0)
-      '@radix-ui/react-popper': 1.2.0(patch_hash=hiw5swwadiatbtuqje6dydtwjm)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-popper': 1.2.0(patch_hash=b84c7ace091ed14c91544bb77dfe28cdfc6129831ecc5b321cd4b3ac84ef432b)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-portal': 1.1.1(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-presence': 1.1.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -17067,7 +17067,7 @@ snapshots:
       '@radix-ui/react-focus-guards': 1.1.0(@types/react@18.2.74)(react@18.2.0)
       '@radix-ui/react-focus-scope': 1.1.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-id': 1.1.0(@types/react@18.2.74)(react@18.2.0)
-      '@radix-ui/react-popper': 1.2.0(patch_hash=hiw5swwadiatbtuqje6dydtwjm)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-popper': 1.2.0(patch_hash=b84c7ace091ed14c91544bb77dfe28cdfc6129831ecc5b321cd4b3ac84ef432b)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-portal': 1.1.1(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-presence': 1.1.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -17081,7 +17081,7 @@ snapshots:
       '@types/react': 18.2.74
       '@types/react-dom': 18.2.24
 
-  '@radix-ui/react-popper@1.2.0(patch_hash=hiw5swwadiatbtuqje6dydtwjm)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@radix-ui/react-popper@1.2.0(patch_hash=b84c7ace091ed14c91544bb77dfe28cdfc6129831ecc5b321cd4b3ac84ef432b)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@floating-ui/react-dom': 2.1.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-arrow': 1.1.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -17175,7 +17175,7 @@ snapshots:
       '@radix-ui/react-focus-guards': 1.1.0(@types/react@18.2.74)(react@18.2.0)
       '@radix-ui/react-focus-scope': 1.1.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-id': 1.1.0(@types/react@18.2.74)(react@18.2.0)
-      '@radix-ui/react-popper': 1.2.0(patch_hash=hiw5swwadiatbtuqje6dydtwjm)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-popper': 1.2.0(patch_hash=b84c7ace091ed14c91544bb77dfe28cdfc6129831ecc5b321cd4b3ac84ef432b)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-portal': 1.1.1(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-slot': 1.1.0(@types/react@18.2.74)(react@18.2.0)
@@ -17282,7 +17282,7 @@ snapshots:
       '@radix-ui/react-context': 1.1.0(@types/react@18.2.74)(react@18.2.0)
       '@radix-ui/react-dismissable-layer': 1.1.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-id': 1.1.0(@types/react@18.2.74)(react@18.2.0)
-      '@radix-ui/react-popper': 1.2.0(patch_hash=hiw5swwadiatbtuqje6dydtwjm)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-popper': 1.2.0(patch_hash=b84c7ace091ed14c91544bb77dfe28cdfc6129831ecc5b321cd4b3ac84ef432b)(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-portal': 1.1.1(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-presence': 1.1.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
