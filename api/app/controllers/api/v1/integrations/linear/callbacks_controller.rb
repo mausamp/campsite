@@ -14,10 +14,13 @@ module Api
 
           def show
             organization = Organization.find_by!(public_id: params[:state])
+            Rails.logger.info "🔄 Linear OAuth callback received for Organization ID: #{organization.id}"
 
             authorize(organization, :create_linear_integration?)
 
             oauth = linear_oauth_client.retrieve_access_token!(code: params[:code], callback_url: linear_integration_callback_url)
+            Rails.logger.info "callback url: #{linear_integration_callback_url}"
+            Rails.logger.info "oauth response: #{oauth.inspect}"
 
             if oauth["access_token"]
               integration = organization.integrations.find_or_initialize_by(provider: :linear)
