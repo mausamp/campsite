@@ -15,7 +15,7 @@ export const useLinearAuthorizationUrl = () => {
   params.set('state', organization?.id || '')
   params.set('redirect_uri', LINEAR_CALLBACK_URL)
   params.set('response_type', 'code')
-  params.set('actor', 'application')
+  params.set('actor', 'app')
   params.set('prompt', 'consent')
   params.set('client_id', LINEAR_CLIENT_ID)
 
