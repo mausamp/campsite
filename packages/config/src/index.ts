@@ -41,9 +41,7 @@ export const ZAPIER_APP_URL = 'https://zapier.com/apps/campsite/integrations'
 export const CAL_DOT_COM_APP_URL = 'https://app.cal.com/apps/campsite'
 
 export const LINEAR_CALLBACK_URL = `${RAILS_API_URL}/v1/integrations/linear/callback`
-export const LINEAR_DEV_CLIENT_ID = 'bc6d5e0c459d67c42ae462f1167736da'
-export const LINEAR_PROD_CLIENT_ID = '29090aad6cfae00eb560b42aa7617c0a'
-export const LINEAR_CLIENT_ID = IS_PRODUCTION ? LINEAR_PROD_CLIENT_ID : LINEAR_DEV_CLIENT_ID
+export const LINEAR_CLIENT_ID = process.env.NEXT_PUBLIC_LINEAR_CLIENT_ID!
 
 export const ONBOARDING_STEP_KEY = 'onboardingStep'
 export const ONBOARDING_SHARED_POSTS_KEY = 'onboardingPostIds'
