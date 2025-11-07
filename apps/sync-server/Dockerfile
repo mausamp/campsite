@@ -11,8 +11,6 @@ ARG TIPTAP_PRIVATE_REGISTRY_KEY
 
 LABEL fly_launch_runtime="Node.js"
 
-ENV SENTRY_PROPERTIES=sentry.properties
-
 # Throw-away build stage to reduce size of final image
 FROM base as builder
 # Install packages needed to build node modules
@@ -38,13 +36,17 @@ COPY --from=builder /app/out/full/ .
 
 RUN npx turbo run build --filter=@campsite/sync-server
 
-ARG SENTRY_AUTH_TOKEN
-ARG SENTRY_ORG
-ARG SENTRY_PROJECT
+
 
 RUN apt-get update -y && apt-get install -y ca-certificates
 
-# RUN SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN} SENTRY_ORG=${SENTRY_ORG} SENTRY_PROJECT=${SENTRY_PROJECT} npx turbo run sentry:sourcemaps --filter=@campsite/sync-server
+RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN \
+--mount=type=secret,id=SENTRY_ORG \
+--mount=type=secret,id=SENTRY_PROJECT \
+SENTRY_ORG=$(cat /run/secrets/SENTRY_ORG) \
+SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) \
+SENTRY_PROJECT=$(cat /run/secrets/SENTRY_PROJECT) \
+npx turbo run sentry:sourcemaps --filter=@campsite/sync-server
 
 
 FROM base AS runner
