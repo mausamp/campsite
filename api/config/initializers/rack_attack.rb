@@ -15,13 +15,10 @@ if Rails.env.production?
 end
 
 Rack::Attack.blocklist_ip("46.246.41.169")
-Rack::Attack.blocklist_ip("72.199.149.41")
-Rack::Attack.blocklist_ip("44.200.74.14")
-Rack::Attack.blocklist_ip("3.236.211.115")
 
-# Rack::Attack.safelist("mark server-side rendering requests safe") do |request|
-#   request.get_header("HTTP_X_CAMPSITE_SSR_SECRET") == Rails.application.credentials.rack_attack.fetch(:ssr_secret)
-# end
+Rack::Attack.safelist("mark server-side rendering requests safe") do |request|
+  request.get_header("HTTP_X_CAMPSITE_SSR_SECRET") == Rails.application.credentials.rack_attack.fetch(:ssr_secret)
+end
 
 HIGH_RATE_PATHS = [
   "/v1/integrations/slack/events",

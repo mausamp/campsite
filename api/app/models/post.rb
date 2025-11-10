@@ -15,7 +15,7 @@ class Post < ApplicationRecord
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::SanitizeHelper
   include TaskUpdatable
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
   include SearchConfigBuilder
   include Commentable
   include FollowUpable
@@ -534,7 +534,7 @@ class Post < ApplicationRecord
     path = "/v1/post_note_open_graph_images/#{public_id}/#{contents_hash}"
 
     if Rails.env.production? || ENV["CAMPSITE_NGROK"] == "true"
-      build_imgix_folder_url(path)
+      build_media_folder_url(path)
     else
       "http://api.campsite.test:3001#{path}"
     end

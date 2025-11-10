@@ -24,6 +24,16 @@ Rails.application.config.middleware.insert_before(0, Rack::Cors) do
   end
 
   allow do
+    # Allow CDN requests from any origin
+    origins "*"
+
+    resource "/cdn/*",
+      headers: :any,
+      methods: [:get, :head, :options],
+      max_age: 86400
+  end
+
+  allow do
     # allow requests from any origin for public api
     origins "*"
 

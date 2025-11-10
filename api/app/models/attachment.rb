@@ -2,7 +2,7 @@
 
 class Attachment < ApplicationRecord
   include PublicIdGenerator
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   FILE_TYPES_TO_EXTENSION = {
     "image/gif" => "gif",
@@ -155,7 +155,7 @@ class Attachment < ApplicationRecord
   def url
     return file_path if link?
 
-    build_imgix_url(file_path)
+    build_media_url(file_path)
   end
 
   def extension
@@ -168,7 +168,7 @@ class Attachment < ApplicationRecord
 
     # pass an empty string to download the original file
     # https://docs.imgix.com/apis/rendering/format/download
-    build_imgix_url(file_path, dl: "")
+    build_media_url(file_path, dl: "")
   end
 
   def thumbnail_url
@@ -178,7 +178,7 @@ class Attachment < ApplicationRecord
     elsif previewable?
       resize_preview_url(48)
     elsif gif?
-      build_imgix_url(file_path, { w: 48, h: 48, auto: "compress", dpr: 2, frame: 1 })
+      build_media_url(file_path, { w: 48, h: 48, auto: "compress", dpr: 2, frame: 1 })
     elsif image?
       image_urls.thumbnail_url
     end
@@ -186,9 +186,9 @@ class Attachment < ApplicationRecord
 
   def open_graph_image_url
     if previewable?
-      build_imgix_url(preview_file_path)
+      build_media_url(preview_file_path)
     elsif gif? || image?
-      build_imgix_url(file_path)
+      build_media_url(file_path)
     end
   end
 
@@ -199,7 +199,7 @@ class Attachment < ApplicationRecord
       return imgix_video_thumbnail_urls.preview_url
     end
 
-    build_imgix_url(preview_file_path)
+    build_media_url(preview_file_path)
   end
 
   def preview_thumbnail_url
@@ -217,7 +217,7 @@ class Attachment < ApplicationRecord
       return imgix_video_thumbnail_urls.preview_url
     end
 
-    build_imgix_url(preview_file_path, { w: width, auto: "compress", dpr: 2 })
+    build_media_url(preview_file_path, { w: width, auto: "compress", dpr: 2 })
   end
 
   def link?

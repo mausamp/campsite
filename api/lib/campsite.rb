@@ -8,7 +8,7 @@ module Campsite
   PROD_DESKTOP_APP_PROTOCOL = "campsite://"
 
   DEV_STYLED_TEXT_API_URL = URI.parse("http://localhost:3002")
-  PROD_STYLED_TEXT_API_URL = URI.parse("http://styled-text-server.internal:9000")
+  PROD_STYLED_TEXT_API_URL = URI.parse("https://camp-styled-text.polo-apps.com")
 
   DEV_HTML_TO_IMAGE_URL = URI.parse("http://localhost:9222")
   PROD_HTML_TO_IMAGE_URL = URI.parse("http://html-to-image.internal:9222")

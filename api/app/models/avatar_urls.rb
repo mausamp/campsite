@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AvatarUrls
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   AVATAR_MAX_FILE_SIZE = 5.megabyte
 
@@ -24,7 +24,7 @@ class AvatarUrls
 
     return @avatar_path if remote?
 
-    build_imgix_url(@avatar_path, {
+    build_media_url(@avatar_path, {
       "w": size,
       "h": size,
       "fit": "crop",

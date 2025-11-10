@@ -6,7 +6,7 @@ require "openssl"
 class User < ApplicationRecord
   include FallbackAvatarUrl
   include PublicIdGenerator
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
   include Tokenable
 
   DEV_APP_PROTOCOL = "campsite-dev://"
@@ -238,7 +238,7 @@ class User < ApplicationRecord
     uri = Addressable::URI.parse(cover_photo_path)
     return uri.to_s if uri.absolute?
 
-    build_imgix_url(cover_photo_path)
+    build_media_url(cover_photo_path)
   end
 
   def self.email_domain(email)

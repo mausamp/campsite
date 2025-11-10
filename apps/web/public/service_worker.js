@@ -31,6 +31,17 @@ self.addEventListener('push', function (event) {
       navigator.setAppBadge(app_badge_count)
     }
 
+    // Play notification sound by sending message to all clients
+    event.waitUntil(
+      self.clients.matchAll({ type: 'window' }).then((clients) => {
+        clients.forEach((client) => {
+          client.postMessage({
+            type: 'PLAY_NOTIFICATION_SOUND'
+          })
+        })
+      })
+    )
+
     event.waitUntil(
       self.registration
         .showNotification(title, { data: { app_badge_count, target_url }, ...options })

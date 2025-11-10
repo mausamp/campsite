@@ -63,7 +63,7 @@ gem "sprockets-rails"
 gem "strong_password"
 gem "swearjar"
 gem "trilogy"
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: [:windows, :jruby]
 gem "userlist-rails"
 gem "web-push"
 gem "workflow-activerecord"

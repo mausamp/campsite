@@ -6,7 +6,7 @@ class Feedback < ApplicationRecord
   belongs_to :user
   belongs_to :organization, optional: true
 
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   def self.generate_presigned_fields(organization, mime_type)
     extension = Rack::Mime::MIME_TYPES.invert[mime_type]
@@ -18,7 +18,7 @@ class Feedback < ApplicationRecord
 
     if screenshot_path.present?
       components += [
-        Plain::Components::LinkButton.new(link_button_label: "Screenshot", link_button_url: build_imgix_url(screenshot_path)),
+        Plain::Components::LinkButton.new(link_button_label: "Screenshot", link_button_url: build_media_url(screenshot_path)),
         Plain::Components::Spacer.new,
       ]
     end

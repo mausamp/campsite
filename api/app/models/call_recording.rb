@@ -9,7 +9,7 @@ class CallRecording < ApplicationRecord
   ]
 
   include PublicIdGenerator
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   belongs_to :call
   has_many :speakers, class_name: "CallRecordingSpeaker", dependent: :destroy_async
@@ -23,13 +23,13 @@ class CallRecording < ApplicationRecord
   def url
     return unless file_path
 
-    build_imgix_url(file_path)
+    build_media_url(file_path)
   end
 
   def chat_url
     return unless chat_file_path
 
-    build_imgix_url(chat_file_path)
+    build_media_url(chat_file_path)
   end
 
   def imgix_video_thumbnail_preview_url
@@ -94,7 +94,7 @@ class CallRecording < ApplicationRecord
   def transcript_srt_url
     return unless transcript_srt_file_path
 
-    build_imgix_url(transcript_srt_file_path)
+    build_media_url(transcript_srt_file_path)
   end
 
   def transcription_status

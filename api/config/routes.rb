@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints subdomain: "admin" do
+  constraints subdomain: ENV.fetch("ADMIN_SUBDOMAIN", "admin") do
     scope module: "admin", path: "admin" do
       authenticate :user, lambda { |u| u.staff? } do
         mount Sidekiq::Web => "/sidekiq"
@@ -591,6 +591,9 @@ Rails.application.routes.draw do
     resource :open_graph_links, only: [:show]
     resources :data_export_callbacks, only: [:update]
   end
+
+  # endpoint used by the CDN (Cloudflare) to fetch protected S3 objects
+  get "/cdn/*path", to: "cdn#show", as: :cdn_file, format: false
 
   # Adds OAuth routes to the V2 API.
   # This errors if used in a `scope` block so we use the `scope` option on `use_doorkeeper` instead.

@@ -59,6 +59,7 @@ const cspResourcesByDirective = {
     'wss://*.pusher.com',
     'https://campsite.imgix.net',
     'https://truecamp.imgix.net',
+    'https://camp-cdn.polo-apps.com',
     process.env.NODE_ENV !== 'production' && 'https://campsite-dev.imgix.net',
     'https://react-tweet.vercel.app', // for react-tweet embeds
     'https://media.tenor.com' // used for Tenor gifs
@@ -70,6 +71,7 @@ const cspResourcesByDirective = {
     'data:',
     'https://campsite.imgix.net',
     'https://truecamp.imgix.net',
+    'https://camp-cdn.polo-apps.com',
     'https://campsite.imgix.video',
     'https://campsite-api.imgix.net',
     'https://lh3.googleusercontent.com',
@@ -92,6 +94,7 @@ const cspResourcesByDirective = {
     process.env.NODE_ENV !== 'production' && 'd1tk25h31rf8pv.cloudfront.net', // campsite-hls-dev
     'https://campsite.imgix.net',
     'https://truecamp.imgix.net',
+    'https://camp-cdn.polo-apps.com',
     'https://campsite-api.imgix.net',
     'https://video.twimg.com', // used for Twitter videos
     process.env.NODE_ENV !== 'production' && 'https://campsite-dev.imgix.net',
@@ -135,11 +138,13 @@ const moduleExports = {
       'avatars.slack-edge.com',
       'campsite.imgix.net',
       'truecamp.imgix.net',
+      'camp-cdn.polo-apps.com',
       'campsite-dev.imgix.net',
       'lh3.googleusercontent.com',
       'uploads.linear.app',
       'camp-api.polo-apps.com',
-      'hel1.your-objectstorage.com'
+      'hel1.your-objectstorage.com',
+      'camp-cdn.polo-apps.com',
     ]
   },
   async redirects() {

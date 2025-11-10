@@ -2,7 +2,7 @@
 
 class FigmaFileAttachmentDetails
   include ActiveModel::Model
-  include ImgixUrlBuilder
+  include MediaUrlBuilder
 
   attr_accessor :organization, :figma_file_url, :file_path, :image_urls, :url, :width, :height, :size, :file_type, :figma_file_id, :remote_figma_node_id, :remote_figma_node_name, :remote_figma_node_type, :figma_share_url
 
