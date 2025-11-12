@@ -1,5 +1,6 @@
 const { readFile, stat, writeFile } = require('fs/promises')
 const path = require('path')
+require('dotenv').config()
 
 /**
  * @param {import('esbuild').BuildOptions} buildOptions
@@ -10,12 +11,12 @@ module.exports = function ({ jsxFactory, jsxFragment, ...buildOptions }) {
 
   // Define environment variables for the UI build
   const env = {
-    APP_URL: isProd ? `https://app.campsite.com` : `https://app-dev.campsite.com`,
-    AUTH_URL: isProd ? `https://auth.campsite.com` : `https://api-dev.campsite.com`,
-    API_URL: isProd ? `https://api.campsite.com` : `https://api-dev.campsite.com`,
-    PUSHER_KEY: isProd ? '1301e1180de87095b1c0' : '874a1de2f18896929939',
-    PUSHER_APP_CLUSTER: 'us3',
-    SLACKBOT_CLIENT_ID: isProd ? '3424176891222.3424180786422' : '3424176891222.4588976536711'
+    APP_URL: process.env.APP_URL,
+    AUTH_URL: process.env.AUTH_URL,
+    API_URL: process.env.API_URL,
+    PUSHER_KEY: process.env.PUSHER_KEY,
+    PUSHER_APP_CLUSTER: process.env.PUSHER_APP_CLUSTER,
+    SLACKBOT_CLIENT_ID: process.env.SLACKBOT_CLIENT_ID
   }
 
   const define = Object.entries(env).reduce((acc, [key, value]) => {

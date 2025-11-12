@@ -24,7 +24,7 @@ export function App() {
       ...DEFAULT_VALUES,
       command
     },
-    resolver: zodResolver(schema)
+    resolver: zodResolver(schema as any)
   })
 
   const {

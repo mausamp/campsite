@@ -3,7 +3,6 @@ import * as Sentry from '@sentry/nextjs'
 
 import { RAILS_API_URL, WEB_PUSH_PUBLIC_KEY } from '@campsite/config'
 
-import { useIsPWA } from '@/hooks/useIsPWA'
 import { apiClient } from '@/utils/queryClient'
 
 interface ContextProps {
@@ -28,10 +27,9 @@ const conv = (val) => btoa(String.fromCharCode.apply(null, new Uint8Array(val)))
 export const WebPushProvider: React.FC<Props> = ({ children }) => {
   const [permission, setPermission] = useState(() => ('Notification' in window ? Notification.permission : 'denied'))
   const [pushManager, setPushManager] = useState<PushManager | null>(null)
-  const canPush = useIsPWA()
 
   useEffect(() => {
-    if (canPush && 'permissions' in navigator && 'query' in navigator.permissions) {
+    if ('permissions' in navigator && 'query' in navigator.permissions) {
       navigator.permissions
         .query({ name: 'notifications' })
         .then((status) => {
@@ -41,10 +39,10 @@ export const WebPushProvider: React.FC<Props> = ({ children }) => {
         })
         .catch(() => setPermission('denied'))
     }
-  }, [canPush])
+  }, [])
 
   useEffect(() => {
-    if (!canPush || !pushManager) return
+    if (!pushManager) return
 
     const run = async () => {
       const existingSubscription = await pushManager.getSubscription()
@@ -71,10 +69,10 @@ export const WebPushProvider: React.FC<Props> = ({ children }) => {
     }
 
     run()
-  }, [permission, pushManager, canPush])
+  }, [permission, pushManager])
 
   useEffect(() => {
-    if (canPush && 'serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register(`/service_worker.js?API_URL=${RAILS_API_URL}`).then(
         (registration) => {
           if ('pushManager' in registration) {
@@ -86,7 +84,7 @@ export const WebPushProvider: React.FC<Props> = ({ children }) => {
         }
       )
     }
-  }, [canPush])
+  }, [])
 
   const value = useMemo(() => {
     return {
