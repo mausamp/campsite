@@ -2,6 +2,7 @@
 
 class WebPushSubscription < ApplicationRecord
   belongs_to :user
+  include MediaUrlBuilder
 
   attr_accessor :session_id
 
@@ -17,9 +18,7 @@ class WebPushSubscription < ApplicationRecord
 
   def deliver(message)
     vapid_keys = Rails.application.credentials.dig(:webpush_vapid)
-
-    uri = Addressable::URI.parse(Rails.application.credentials.imgix&.url)
-    uri.path = "static/apple-touch-icon-512.png"
+    uri = build_media_url("static/apple-touch-icon-512.png")
 
     message = message.merge(
       icon: uri.to_s,
