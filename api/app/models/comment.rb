@@ -119,7 +119,7 @@ class Comment < ApplicationRecord
       size = [preferred_size, attachment.width, attachment.height].min
       min_x = (x - size / 2).clamp(0, attachment.width - size)
       min_y = (y - size / 2).clamp(0, attachment.height - size)
-      attachment.build_imgix_url(attachment.file_path, {
+      attachment.build_media_url(attachment.file_path, {
         auto: "compress,format",
         rect: "#{min_x},#{min_y},#{size},#{size}",
         w: size,

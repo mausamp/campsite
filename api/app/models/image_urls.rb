@@ -22,37 +22,37 @@ class ImageUrls
   def original_url
     return file_path if blob? || data?
 
-    build_imgix_url(file_path)
+    build_media_url(file_path)
   end
 
   def thumbnail_url
     return file_path if blob? || data?
 
-    build_imgix_url(file_path, { auto: "compress,format", dpr: 2, w: WIDTHS[:thumbnail_url], q: 60 })
+    build_media_url(file_path, { auto: "compress,format", dpr: 2, w: WIDTHS[:thumbnail_url], q: 60 })
   end
 
   def email_url
     return file_path if blob? || data?
 
-    build_imgix_url(file_path, { auto: "compress,format", dpr: 2, w: WIDTHS[:email_url] })
+    build_media_url(file_path, { auto: "compress,format", dpr: 2, w: WIDTHS[:email_url] })
   end
 
   def feed_url
     return file_path if blob? || data?
 
-    build_imgix_url(file_path, { auto: "compress,format", dpr: 2, w: WIDTHS[:feed_url], q: 80 })
+    build_media_url(file_path, { auto: "compress,format", dpr: 2, w: WIDTHS[:feed_url], q: 80 })
   end
 
   def slack_url
     return file_path if blob? || data?
 
-    build_imgix_url(file_path, { auto: "compress,format", dpr: 2, w: WIDTHS[:slack_url], q: 75 })
+    build_media_url(file_path, { auto: "compress,format", dpr: 2, w: WIDTHS[:slack_url], q: 75 })
   end
 
   def large_url
     return file_path if blob? || data?
 
-    build_imgix_url(file_path, { auto: "compress,format", dpr: 2, w: WIDTHS[:large_url], q: 90 })
+    build_media_url(file_path, { auto: "compress,format", dpr: 2, w: WIDTHS[:large_url], q: 90 })
   end
 
   private

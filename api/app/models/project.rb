@@ -187,7 +187,7 @@ class Project < ApplicationRecord
     uri = Addressable::URI.parse(cover_photo_path)
     return uri.to_s if uri.absolute?
 
-    build_imgix_url(cover_photo_path)
+    build_media_url(cover_photo_path)
   end
 
   def archive!(org_member)

@@ -8,7 +8,7 @@ import { AuthenticationError, Context } from './types'
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
-    dsn: 'https://72810e9888151e1a6207aadb2a6c38d6@o1244295.ingest.sentry.io/4506022249103360',
+    dsn: process.env.SENTRY_DSN,
     environment: process.env.NODE_ENV,
     tracesSampleRate: 0
   })

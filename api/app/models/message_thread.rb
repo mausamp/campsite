@@ -308,7 +308,7 @@ class MessageThread < ApplicationRecord
   def image_url
     return unless image_path
 
-    build_imgix_url(image_path)
+    build_media_url(image_path)
   end
 
   def avatar_url(size: nil)
@@ -320,7 +320,7 @@ class MessageThread < ApplicationRecord
     uri = Addressable::URI.parse(image_path)
     return uri.to_s if uri.absolute? # return if absolute url eg. avatar from omniauth user
 
-    build_imgix_url(image_path, {
+    build_media_url(image_path, {
       "w": size,
       "h": size,
       "fit": "crop",

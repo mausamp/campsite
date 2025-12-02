@@ -24,7 +24,7 @@ class AvatarUrls
 
     return @avatar_path if remote?
 
-    build_imgix_url(@avatar_path, {
+    build_media_url(@avatar_path, {
       "w": size,
       "h": size,
       "fit": "crop",

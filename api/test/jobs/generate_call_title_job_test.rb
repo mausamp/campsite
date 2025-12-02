@@ -7,7 +7,7 @@ class GenerateCallTitleJobTest < ActiveJob::TestCase
     test "sets title and status" do
       recording = create(:call_recording, :with_transcription)
 
-      OpenAI::Client.any_instance.expects(:chat).returns({ "choices" => [{ "message" => { "content" => "Foo Bar" } }] })
+      Llm.any_instance.expects(:chat).returns("Foo Bar")
 
       GenerateCallTitleJob.new.perform(recording.call.id)
 

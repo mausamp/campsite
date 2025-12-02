@@ -186,6 +186,8 @@ GEM
       multipart-post (~> 2)
     faraday-net_http (3.1.0)
       net-http
+    faraday-retry (2.3.2)
+      faraday (~> 2.0)
     fastimage (2.2.6)
     flipper (1.0.0)
       brow (~> 0.4.1)
@@ -242,7 +244,6 @@ GEM
     marcel (1.0.4)
     method_source (1.1.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.9)
     minitest (5.25.5)
     minitest-focus (1.3.1)
       minitest (>= 4, < 6)
@@ -272,12 +273,7 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
-    nokogiri (1.16.7)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
     nokogiri (1.16.7-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
@@ -433,12 +429,19 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
     rubocop-shopify (2.15.1)
       rubocop (~> 1.51)
-    ruby-openai (7.0.1)
-      event_stream_parser (>= 0.3.0, < 2.0.0)
-      faraday (>= 1)
-      faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    ruby_llm (1.9.1)
+      base64
+      event_stream_parser (~> 1)
+      faraday (>= 1.10.0)
+      faraday-multipart (>= 1)
+      faraday-net_http (>= 1)
+      faraday-retry (>= 1)
+      marcel (~> 1.0)
+      ruby_llm-schema (~> 0.2.1)
+      zeitwerk (~> 2)
+    ruby_llm-schema (0.2.5)
     rufus-scheduler (3.9.1)
       fugit (~> 1.1, >= 1.1.6)
     searchkick (5.3.1)
@@ -530,11 +533,7 @@ GEM
     zeitwerk (2.7.3)
 
 PLATFORMS
-  arm64-darwin-21
-  arm64-darwin-22
-  ruby
-  x86_64-darwin-21
-  x86_64-darwin-22
+  arm64-darwin-24
   x86_64-linux
 
 DEPENDENCIES
@@ -599,7 +598,7 @@ DEPENDENCIES
   redis (= 4.8.1)
   rubocop-rails
   rubocop-shopify
-  ruby-openai
+  ruby_llm (~> 1.9)
   searchkick
   sentry-rails (~> 5.18)
   sentry-ruby (~> 5.18)

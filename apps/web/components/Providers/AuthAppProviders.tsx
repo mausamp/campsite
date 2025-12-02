@@ -15,6 +15,7 @@ import { LocalCommandMenu } from '@/components/CommandMenu'
 import { FeedbackDialog } from '@/components/Feedback/FeedbackDialog'
 import { GlobalKeyboardShortcuts } from '@/components/GlobalKeyboardShortcuts'
 import { DevModeBanner } from '@/components/NavigationSidebar/DevModeBanner'
+import { NotificationSoundPlayer } from '@/components/NotificationSoundPlayer'
 import { PostComposer } from '@/components/PostComposer'
 import { AuthProvider } from '@/components/Providers/AuthProvider'
 import { BackgroundAppRefresh } from '@/components/Providers/BackgroundAppRefresh'
@@ -59,6 +60,7 @@ export const AuthAppProviders: PageWithProviders<any> = ({ children, allowLogged
                     <HMSRoomStateSubscriber />
                     <AuthProvider allowLoggedOut={allowLoggedOut}>
                       <WebPushProvider>
+                        <NotificationSoundPlayer />
                         <PusherProvider>
                           <IncomingCallRoomInvitationToast />
                           <DesktopRedirectProvider>

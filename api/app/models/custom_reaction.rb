@@ -25,7 +25,7 @@ class CustomReaction < ApplicationRecord
     exclusion: { in: EmojiMart.ids, message: "already exists as a system emoji" }
 
   def file_url
-    build_imgix_url(file_path)
+    build_media_url(file_path)
   end
 
   def to_html

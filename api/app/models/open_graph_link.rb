@@ -15,11 +15,11 @@ class OpenGraphLink < ApplicationRecord
   end
 
   def image_url
-    build_imgix_url(image_path) if image_path.present?
+    build_media_url(image_path) if image_path.present?
   end
 
   def favicon_url
-    build_imgix_url(favicon_path) if favicon_path.present?
+    build_media_url(favicon_path) if favicon_path.present?
   end
 
   def self.normalize_url(url)

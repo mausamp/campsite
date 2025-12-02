@@ -44,9 +44,9 @@ class LinearIssueJob < BaseJob
       #
       # https://developers.linear.app/docs/guides/how-to-upload-a-file-to-linear
       description += if file_type.starts_with?("image")
-        "\n\n![Screenshot](#{build_imgix_url(feedback.screenshot_path)})"
+        "\n\n![Screenshot](#{build_media_url(feedback.screenshot_path)})"
       else
-        "\n\n[Attachment](#{build_imgix_url(feedback.screenshot_path)})"
+        "\n\n[Attachment](#{build_media_url(feedback.screenshot_path)})"
       end
     end
 

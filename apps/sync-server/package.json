@@ -6,7 +6,7 @@
     "build": "tsup",
     "clean": "rm -rf .turbo dist node_modules",
     "dev": "tsup --watch --onSuccess \"node dist/index.mjs\"",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org campsite-software --project sync-server ./dist && sentry-cli sourcemaps upload --org campsite-software --project sync-server --log-level=debug ./dist",
+    "sentry:sourcemaps": "sentry-cli --url https://glitchtip.allbrainy.com sourcemaps inject --org camp-site --project campsite-sync-server ./dist && sentry-cli --url https://glitchtip.allbrainy.com sourcemaps upload --org camp-site --project campsite-sync-server --log-level=debug ./dist",
     "start": "node dist/index.mjs"
   },
   "dependencies": {

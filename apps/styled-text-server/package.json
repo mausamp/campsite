@@ -7,7 +7,7 @@
     "clean": "rm -rf .turbo dist node_modules",
     "dev": "tsup --watch --onSuccess \"node dist/index.mjs\"",
     "lint": "eslint . --ext .ts,.tsx",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org campsite-software --project styled-text-server ./dist && sentry-cli sourcemaps upload --org campsite-software --project styled-text-server ./dist",
+    "sentry:sourcemaps": "sentry-cli --url https://glitchtip.allbrainy.com sourcemaps inject --org camp-site --project campsite-styled-text-server ./dist && sentry-cli --url https://glitchtip.allbrainy.com sourcemaps upload --org camp-site --project campsite-styled-text-server --log-level=debug ./dist",
     "start": "node dist/index.mjs",
     "test": "vitest"
   },

@@ -18,7 +18,7 @@ class CustomReactionsPack
     def file_url
       return if file_path.nil?
 
-      build_imgix_url(file_path)
+      build_media_url(file_path)
     end
 
     def file_type

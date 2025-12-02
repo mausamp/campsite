@@ -3,10 +3,6 @@
 class CdnController < ApplicationController
   include ActionController::Live
 
-  # Skip authentication and CSRF checks for public CDN
-  skip_before_action :verify_authenticity_token
-  skip_before_action :require_authenticated_user, raise: false
-
   def show
     key = params[:path]
     bucket = Rails.application.credentials.dig(:aws, :s3_bucket)

@@ -261,7 +261,7 @@ class Note < ApplicationRecord
     path = "/v1/notes/#{public_id}/thumbnails/#{contents_hash}"
 
     if Rails.env.production? || ENV["CAMPSITE_NGROK"] == "true"
-      build_imgix_folder_url(path)
+      build_media_folder_url(path)
     else
       "http://api.campsite.test:3001#{path}"
     end

@@ -10,14 +10,12 @@ export const app: express.Express = express()
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
-    dsn: 'https://cace67e62da1a116fd2fa2a30a3cd1d9@o1244295.ingest.us.sentry.io/4506985116401664',
+    dsn: process.env.SENTRY_DSN,
     debug: process.env.NODE_ENV !== 'production',
     environment: process.env.NODE_ENV ?? 'development',
     tracesSampleRate: 0
   })
 }
-
-console.log('NODE_ENV', process.env.NODE_ENV)
 
 // The request handler must be the first middleware on the app
 app.use(Sentry.Handlers.requestHandler())
@@ -26,11 +24,17 @@ app.use(morgan('combined'))
 app.use(bodyParser.text({ limit: '5mb' }))
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }))
 app.use((req, res, next) => {
+  if (req.path === '/up') return next()
+
   if (req.header('Authorization') != `Bearer ${process.env.AUTHTOKEN}`) {
     return res.status(401).json({ message: 'invalid token' })
   }
 
   next()
+})
+
+app.get('/up', (req, res) => {
+  res.send('OK')
 })
 
 app.post('/html_to_slack', bodyParser.json(), (req, res) => {

@@ -1,0 +1,36 @@
+service: campsite-sync-server
+
+image: truemarkdev/campsite
+
+servers:
+  web:
+    - 51.91.240.88
+
+proxy:
+  ssl: true
+  hosts:
+    - camp-sync.polo-apps.com
+  app_port: 9000
+
+registry:
+  server: ghcr.io
+  username: KAMAL_REGISTRY_USER_NAME
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  secret:
+    - API_BASE_URL
+    - SENTRY_DSN
+
+builder:
+  arch: amd64
+  context: .
+  dockerfile: apps/sync-server/Dockerfile
+  secrets:
+    - SENTRY_AUTH_TOKEN
+    - SENTRY_ORG
+    - SENTRY_PROJECT
+
+ssh:
+  user: deploy

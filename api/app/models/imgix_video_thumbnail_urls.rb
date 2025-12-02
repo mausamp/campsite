@@ -12,7 +12,7 @@ class ImgixVideoThumbnailUrls
   attr_reader :file_path
 
   def thumbnail_url
-    build_imgix_video_url(
+    build_media_video_url(
       file_path,
       {
         "video-generate": "thumbnail",
@@ -25,7 +25,7 @@ class ImgixVideoThumbnailUrls
   end
 
   def preview_url
-    build_imgix_video_url(
+    build_media_video_url(
       file_path,
       {
         "video-generate": "thumbnail",

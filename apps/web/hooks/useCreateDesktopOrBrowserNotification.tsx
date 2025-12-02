@@ -13,6 +13,18 @@ export function useCreateDesktopOrBrowserNotification() {
   const isDesktop = useIsDesktopApp()
 
   return ({ title, tag, body, onClick }: Options) => {
+    // Play notification sound
+    try {
+      const sound = new Audio('/sounds/call-peer-join.mp3')
+
+      sound.volume = 0.5
+      sound.play().catch(() => {
+        // Silently fail if autoplay is blocked
+      })
+    } catch (error) {
+      // Silently fail
+    }
+
     const notification = new Notification(title, {
       body,
       tag,

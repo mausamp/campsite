@@ -1,39 +1,16 @@
-
-service: campsite-sync-server
-
-image: julii776/campsite
+service: myapp
+image: myuser/myapp
 
 servers:
   web:
-    - 35.154.218.222  
-
-env:
-  secret:
-    - API_BASE_URL
-    
-proxy:
-  ssl: false               
-  hosts:
-    - camp-sync.polo-apps.com
-  app_port: 9000 
+    - <%= ENV['SERVER_IP'] %>
 
 registry:
-  server: ghcr.io          
-  username: KAMAL_REGISTRY_USER_NAME
-  password: 
+  username: myuser
+  password:
     - KAMAL_REGISTRY_PASSWORD
 
 env:
   secret:
-    - API_BASE_URL
-
-builder:
-  arch: amd64
-  remote: ssh://admin@35.154.218.222
-  context: .
-  dockerfile: apps/sync-server/Dockerfile
-  args:
-    SENTRY_AUTH_TOKEN: eaaopdummy
-
-ssh:
-  user: admin
+    - RAILS_MASTER_KEY
+    - SERVER_IP
